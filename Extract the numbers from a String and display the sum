@@ -1,0 +1,89 @@
+package com.inv;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class ExtractNumbers {
+
+	public static void main(String[] args) throws IOException{
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter a string with integers in it");
+    
+    //Sample Input: abcd45efg46esf10
+		String str = sc.nextLine();
+		
+		getSum(str);
+		
+	}
+	
+	public static void getSum(String str) {
+		int sum=0;
+		int sum1=0;
+//		String str="";
+		String ss = str.replaceAll("(?i)[^0-9]", "");
+		
+		for (int i = 0; i < ss.length(); i++) {
+			sum+=ss.charAt(i)-'0';
+		}
+		
+		for (Character ch : str.toCharArray()) {
+			if(Character.isDigit(ch)) {
+				sum1+=Character.getNumericValue(ch);
+			}
+		}
+		System.out.println("Sum of Individual integers in String::");
+		System.out.print(sum1);
+		System.out.println("\n-----------------------");
+		//Method-1
+		int num=0;int res=0;
+		for (int i = 0; i<str.length(); i++) 
+        { 
+            if (Character.isDigit(str.charAt(i))) {
+                num = num * 10 + (str.charAt(i)-'0');
+      
+            }
+            else
+            { 
+                res+=num; 
+                // Reset the number 
+                num = 0;
+            }
+            if(i==str.length()-1&&num!=0) {
+            	//Add the sum
+            	res+=num;
+            }
+        }
+		System.out.println("Sum of group of integers in String::");
+		System.out.println("Method-1|| Sum : "+res);
+		
+		
+		//Method-2
+
+		String number = "";
+		int summ = 0;
+
+		for(int i=0;i<str.length(); i++) {
+
+			if(Character.isDigit(str.charAt(i))) {
+
+				number = number + str.charAt(i);
+
+			} else {
+
+				if(number != "" ) {
+
+					summ = summ + Integer.parseInt(number);
+					number = "";
+				}    
+			}
+
+			if(i == str.length()-1 && number != "" ) {
+
+				summ = summ + Integer.parseInt(number);
+			}
+		}
+		System.out.println("Method-2|| Sum : " + summ);
+	}
+}
